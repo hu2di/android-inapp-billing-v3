@@ -137,6 +137,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_purchase"
+                android:clickable="true"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -174,6 +175,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_purchase"
+                android:clickable="true"
                 android:orientation="horizontal">
 
                 <ImageView

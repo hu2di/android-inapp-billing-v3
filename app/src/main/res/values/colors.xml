@@ -11,5 +11,5 @@
 
     <color name="colorPremium">#FEBF56</color>
     <color name="colorPurchase">#171717</color>
-    <color name="colorPurchasePressed">#ffffff</color>
+    <color name="colorPurchasePressed">#FEBF56</color>
 </resources>
