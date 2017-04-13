@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.blogspot.huyhungdinh.inappbilling.MainActivity">
+
+    <Button
+        android:id="@+id/btnExample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="150dp"
+        android:text="Example View"
+        android:textAllCaps="false"
+        android:theme="@style/ThemeOverlay.MyBlueButton" />
+
+    <Button
+        android:id="@+id/btnPurchase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnExample"
+        android:layout_centerInParent="true"
+        android:text="Purchased"
+        android:textAllCaps="false"
+        android:theme="@style/ThemeOverlay.MyBlueButton" />
+
+    <Button
+        android:id="@+id/btnSubscribe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnPurchase"
+        android:layout_centerInParent="true"
+        android:text="Subscribe"
+        android:textAllCaps="false"
+        android:theme="@style/ThemeOverlay.MyBlueButton" />
+
+    <Button
+        android:id="@+id/btnConsume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnSubscribe"
+        android:layout_centerInParent="true"
+        android:text="Consume"
+        android:textAllCaps="false"
+        android:theme="@style/ThemeOverlay.MyBlueButton" />
+
+</RelativeLayout>
