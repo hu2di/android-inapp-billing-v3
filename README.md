@@ -3,6 +3,7 @@ In app billing test: purchase, consume, subscribe... using library
 
 # Reset purchased
 Open Android Studio -> Terminal<br>
+..\Android\sdk\platform-tools><br>
 adb shell pm clear com.android.vending
 
 # About
