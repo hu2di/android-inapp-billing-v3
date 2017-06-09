@@ -26,24 +26,4 @@
         android:textAllCaps="false"
         android:theme="@style/ThemeOverlay.MyBlueButton" />
 
-    <Button
-        android:id="@+id/btnSubscribe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btnPurchase"
-        android:layout_centerInParent="true"
-        android:text="Subscribe"
-        android:textAllCaps="false"
-        android:theme="@style/ThemeOverlay.MyBlueButton" />
-
-    <Button
-        android:id="@+id/btnConsume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btnSubscribe"
-        android:layout_centerInParent="true"
-        android:text="Consume"
-        android:textAllCaps="false"
-        android:theme="@style/ThemeOverlay.MyBlueButton" />
-
 </RelativeLayout>
