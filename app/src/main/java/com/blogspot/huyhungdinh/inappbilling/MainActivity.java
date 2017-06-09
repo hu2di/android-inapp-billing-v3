@@ -15,14 +15,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler, View.OnClickListener {
 
-    private Button btnPurchase, btnSubscribe, btnConsume, btnExample;
+    private Button btnPurchase, btnExample;
 
     private boolean readyToPurchase = false;
     private BillingProcessor bp;
 
     private final String PURCHASE_ID = "android.test.purchased";
-    private final String SUBSCRIBE_ID = "android.test.subscribed";
-    private final String CONSUME_ID = "android.test.consumed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +34,11 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
 
     private void initView() {
         btnPurchase = (Button) findViewById(R.id.btnPurchase);
-        btnSubscribe = (Button) findViewById(R.id.btnSubscribe);
-        btnConsume = (Button) findViewById(R.id.btnConsume);
         btnExample = (Button) findViewById(R.id.btnExample);
 
         btnPurchase.setEnabled(false);
-        btnSubscribe.setEnabled(false);
-        btnConsume.setEnabled(false);
 
         btnPurchase.setOnClickListener(this);
-        btnSubscribe.setOnClickListener(this);
-        btnConsume.setOnClickListener(this);
         btnExample.setOnClickListener(this);
     }
 
@@ -58,20 +50,6 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
                     bp.purchase(this, PURCHASE_ID);
                 } else {
                     Toast.makeText(this, "Unable to initiate purchase", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.btnSubscribe:
-                if (readyToPurchase) {
-                    bp.purchase(this, SUBSCRIBE_ID);
-                } else {
-                    Toast.makeText(this, "Unable to initiate subscribe", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.btnConsume:
-                if (readyToPurchase) {
-                    bp.purchase(this, CONSUME_ID);
-                } else {
-                    Toast.makeText(this, "Unable to initiate consume", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btnExample:
@@ -109,8 +87,6 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         readyToPurchase = true;
 
         btnPurchase.setEnabled(true);
-        btnSubscribe.setEnabled(true);
-        btnConsume.setEnabled(true);
 
         checkStatus();
     }
@@ -123,12 +99,6 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         switch (productId) {
             case PURCHASE_ID:
                 Toast.makeText(this, "Thanks for your Purchased!", Toast.LENGTH_SHORT).show();
-                break;
-            case SUBSCRIBE_ID:
-                Toast.makeText(this, "Thanks for your Subscribed!", Toast.LENGTH_SHORT).show();
-                break;
-            case CONSUME_ID:
-                Toast.makeText(this, "Thanks for your Consumed!", Toast.LENGTH_SHORT).show();
                 break;
         }
 
