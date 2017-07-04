@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
@@ -16,10 +17,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler, View.OnClickListener {
 
     private Button btnPurchase, btnExample;
+    private TextView tvResult;
 
     private boolean readyToPurchase = false;
     private BillingProcessor bp;
-
     private final String PURCHASE_ID = "android.test.purchased";
 
     @Override
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bp = new BillingProcessor(this, "YOUR LICENSE KEY FROM GOOGLE PLAY CONSOLE HERE", this);
+        bp = BillingProcessor.newBillingProcessor(this, "YOUR LICENSE KEY FROM GOOGLE PLAY CONSOLE HERE", this); // doesn't bind
+        bp.initialize(); // binds
 
         initView();
     }
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     private void initView() {
         btnPurchase = (Button) findViewById(R.id.btnPurchase);
         btnExample = (Button) findViewById(R.id.btnExample);
+        tvResult = (TextView) findViewById(R.id.tvResult);
 
         btnPurchase.setEnabled(false);
 
@@ -58,70 +61,39 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         }
     }
 
-    private void checkStatus() {
-        new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                List<String> owned = bp.listOwnedProducts();
-                return owned.contains(PURCHASE_ID);
-                //return owned != null && owned.size() != 0;
-            }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updatePurchase();
+    }
 
-            @Override
-            protected void onPostExecute(Boolean b) {
-                super.onPostExecute(b);
-                if (b) {
-                     /*
-                      * Called process purchased
-		              */
-                }
-            }
-        }.execute();
+    private void updatePurchase() {
+        if (bp.isPurchased(PURCHASE_ID)) {
+            tvResult.setText("THANK YOU!");
+        }
     }
 
     @Override
     public void onBillingInitialized() {
-        /*
-         * Called when BillingProcessor was initialized and it's ready to purchase
-		 */
         readyToPurchase = true;
-
         btnPurchase.setEnabled(true);
-
-        checkStatus();
+        updatePurchase();
     }
 
     @Override
     public void onProductPurchased(String productId, TransactionDetails details) {
-        /*
-		 * Called when requested PRODUCT ID was successfully purchased
-		 */
-        switch (productId) {
-            case PURCHASE_ID:
-                Toast.makeText(this, "Thanks for your Purchased!", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        checkStatus();
+        Toast.makeText(this, "Thanks for your Purchased!", Toast.LENGTH_SHORT).show();
+        updatePurchase();
     }
 
     @Override
     public void onBillingError(int errorCode, Throwable error) {
-		/*
-		 * Called when some error occurred. See Constants class for more details
-		 *
-		 * Note - this includes handling the case where the user canceled the buy dialog:
-		 * errorCode = Constants.BILLING_RESPONSE_RESULT_USER_CANCELED
-		 */
         Toast.makeText(this, "Unable to process billing", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPurchaseHistoryRestored() {
-		/*
-		 * Called when purchase history was restored and the list of all owned PRODUCT ID's
-		 * was loaded from Google Play
-		 */
+        updatePurchase();
     }
 
     @Override
